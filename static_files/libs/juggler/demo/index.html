@@ -1,0 +1,103 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Juggler.js demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="normalize.css">
+        <link rel="stylesheet" href="main.css">
+        <!--<script src="../dist/juggler.min.js"></script>-->
+        <script src="../dist/juggler.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Juggler.init();
+
+                // Test 4
+                document.querySelector('[data-test4-toggler]').addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var flag = !Juggler.getFlag('foobar');
+                    Juggler.setFlag('foobar', flag);
+                    document.querySelector('[data-test4-toggler-value]').innerText = flag ? 'true' : 'false';
+                });
+
+                // Test 5
+                document.querySelector('[data-test5-toggler]').addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var flag = !Juggler.getFlag('foobaz');
+                    Juggler.setFlag('foobaz', flag);
+                    document.querySelector('[data-test5-toggler-value]').innerText = flag ? 'true' : 'false';
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Juggler.js demo</h1>
+
+        <div class="container">
+            <div class="test">
+                <h2>Test #1</h2>
+                <div class="test-element" data-juggler-source="test1">I am first element above 1200px window width</div>
+                <div class="test-element test-element--alt">I am first element on and below 1200px window width</div>
+                <div data-juggler-target="test1" data-juggler-media-query="(max-width: 1200px)"></div>
+            </div>
+
+            <div class="test">
+                <h2>Test #2</h2>
+                <div class="test-element" data-juggler-source="test2">I am first element above 500px window height</div>
+                <div class="test-element test-element--alt">I am first element on and below 500px window height</div>
+                <div data-juggler-target="test2" data-juggler-media-query="(max-height: 500px)"></div>
+            </div>
+
+            <div class="test">
+                <h2>Test #3</h2>
+                <div class="test-element" data-juggler-source="test3">I am first element if (min-width: 1200px) and (min-height: 500px) does not match</div>
+                <div class="test-element test-element--alt">I am first element if (min-width: 1200px) and (min-height: 500px) matches</div>
+                <div data-juggler-target="test3" data-juggler-media-query="(min-width: 1200px) and (min-height: 500px)"></div>
+            </div>
+
+            <div class="test">
+                <h2>Test #4</h2>
+                <div class="test-element" data-juggler-source="test4">I am first element if <code>foobar</code> is set to false</div>
+                <div class="test-element test-element--alt">I am first element if <code>foobar</code> is set to true</div>
+                <div data-juggler-target="test4" data-juggler-flag="foobar"></div>
+                <div class="test-element-toggler">
+                    <span>Current value: </span>
+                    <strong data-test4-toggler-value>false</strong>
+                    <button data-test4-toggler>Switch <code>foobar</code> value</button>
+                </div>
+            </div>
+
+            <div class="test">
+                <h2>Test #5</h2>
+                <div class="test-boxes">
+                    <div class="test-box">
+                        <div class="test-box__content">
+                            <div class="test-element" data-juggler-source="test5">Source element</div>
+                        </div>
+                        <div class="test-box__caption">I will appear here if <code>foobaz</code> is set to false and above 1200px window width</div>
+                    </div>
+                    <div class="test-box">
+                        <div class="test-box__content">
+                            <div data-juggler-target="test5" data-juggler-flag="foobaz"></div>
+                        </div>
+                        <div class="test-box__caption">I will appear here if <code>foobaz</code> is set to true and above 1200px window width</div>
+                    </div>
+                    <div class="test-box">
+                        <div class="test-box__content">
+                            <div data-juggler-target="test5" data-juggler-media-query="(max-width: 1200px)"></div>
+                        </div>
+                        <div class="test-box__caption">I will appear here below 1200px window width, no matter the <code>foobaz</code> value</div>
+                    </div>
+                </div>
+
+                <div class="test-element-toggler">
+                    <span>Current value: </span>
+                    <strong data-test5-toggler-value>false</strong>
+                    <button data-test5-toggler>Switch <code>foobaz</code> value</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

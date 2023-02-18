@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}{{obj.name|title}}{% endblock %}
+
+{% block content %}
+
+<section class="properties-list featured portfolio blog" style="background-color: #282d32;">
+ 
+       <div class="container-fluid">
+        <div class="row" style="padding:0 2em;">
+
+    <div class="container contact-us">
+        {% if messages %}
+        {% for message in messages %}
+
+            <div class="row">
+                <div class="col-md-12">
+            <div class="alert alert-{{ message.tags }} alert-dismissible notification closeable" role="alert">
+                <button type="button" class="btn-dark" data-dismiss="alert" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+                {{ message }}
+            </div>
+            </div>
+            </div>
+        {% endfor %}
+        {% endif %}
+        <h3> {{obj.name|title}}</h3>
+        <hr>
+
+        {{obj.description|safe}}
+        
+    
+      
+    </div>
+
+
+
+        </div>
+
+       </div>
+
+    </div>
+</section>
+{% endblock %}

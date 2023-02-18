@@ -1,0 +1,73 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}{{obj.title|title}}{% endblock %}
+
+{% block content %}
+
+<section class="blog blog-section inner-pages bg-black-yangu">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 blog-pots">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="news-item details no-mb2">
+                            <a href="#" class="news-img-link">
+                                <div class="news-item-img">
+                                    <img class="img-responsive" src="{{obj.image.url}}" alt="{{obj.title}}">
+                                </div>
+                            </a>
+                            <div class="news-item-text details pb-0">
+                                <a href="#"><h3>{{obj.title|title}}</h3></a>
+                                <div class="dates">
+                                    <span class="date">{{obj.timestamp|date:"M d Y H:i A"}}  &nbsp;/  {{obj.author|title}}</span>
+                                </div>
+                                <div class="news-item-descr big-news details visib mb-0">
+                                  {{obj.description|safe}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         
+            </div>
+            <aside class="col-lg-3 col-md-12">
+                <div class="widget">
+             
+                    <div class="recent-post py-5">
+                        <h5 class="font-weight-bold">Category</h5>
+                        <ul>
+                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>News</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Blog</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="recent-post">
+                        <h5 class="font-weight-bold mb-4">Popular Tags</h5>
+                        <div class="tags">
+                            {% for tag in tags %}
+                            <span><a href="#" class="btn btn-outline-primary">{{tag.name|title}}</a></span>
+                         
+                            {% endfor %}
+                        </div>
+             
+                    </div>
+                    <div class="recent-post pt-5">
+                        <h5 class="font-weight-bold mb-4">Recent Posts</h5>
+                        {% for post in all %}
+                        <div class="recent-main">
+                            <div class="recent-img">
+                                <a href="{% url 'blog:news_and_blog_details' post.slug %}"><img src="{{post.image.url}}" alt="{{post.title}}"></a>
+                            </div>
+                            <div class="info-img">
+                                <a href="#"><h6>{{post.title|title}}</h6></a>
+                                <p>{{post.timestamp|date:"M d Y H:i A"}}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

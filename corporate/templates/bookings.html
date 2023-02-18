@@ -1,0 +1,113 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}All Bookings{% endblock %}
+{% block headerCSS %}
+
+{% endblock %}
+
+{% block content %}
+
+<section class="properties-list featured portfolio blog" style="background-color: #282d32;">
+ 
+       <div class="container-fluid">
+        <div class="row" style="padding:0 2em;">
+           
+    <div class="container contact-us">
+       
+        {% if messages %}
+        {% for message in messages %}
+
+            <div class="row">
+                <div class="col-md-12">
+            <div class="alert alert-{{ message.tags }} alert-dismissible notification closeable" role="alert">
+                <button type="button" class="btn-dark" data-dismiss="alert" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+                {{ message }}
+            </div>
+            </div>
+            </div>
+        {% endfor %}
+        {% endif %}
+        <!-- <a href="{% url 'corporate:create_booking_view' %}" class="btn mb-5">Create A Booking</a> -->
+        <div class="property-location mb-5">
+         
+            <table  id="booking" class="table" style="width:100%">
+                <thead>
+                  <tr>
+              
+                    <th scope="col"> Booking ID</th>
+                    <th scope="col">Booking Dates</th>
+                    <th scope="col">Total Amount</th>
+                    <th scope="col">Number of People</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date Created</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for booking in obj %}
+                  <tr>
+                    {% if obj.booking_status == 'active' %}
+                    <span style="color:green;">{{obj.booking_status|title}}</span> 
+                    {% endif %}
+                    {% if obj.booking_status == 'checked in' %}
+                    <span style="color:green;">{{obj.booking_status|title}}</span> 
+                    {% endif %}
+                    {% if obj.booking_status == 'cancelled' %}
+                    <span style="color:red;">{{obj.booking_status|title}}</span> 
+                    {% endif %}
+                    {% if obj.booking_status == 'checked out' %}
+                    <span style="color:orange;">{{obj.booking_status|title}}</span> 
+                    {% endif %}
+                    
+                  
+                    <td><a href="{% url 'corporate:customer_booking_summary' booking.booking_id %}">{{booking.booking_id}}</a> </td>
+                    <td>{{booking.date}}</td>
+                    <td>R{{booking.total_cost}}</td>
+                    <td>{{booking.number_of_people}}</td>
+
+                    <td>
+                      {% if booking.booking_status == 'active' %}
+                      <span style="color:green;">{{booking.booking_status|title}}</span> 
+                      {% endif %}
+                      {% if booking.booking_status == 'checked in' %}
+                      <span style="color:green;">{{booking.booking_status|title}}</span> 
+                      {% endif %}
+                      {% if booking.booking_status == 'cancelled' %}
+                      <span style="color:red;">{{booking.booking_status|title}}</span> 
+                      {% endif %}
+                      {% if booking.booking_status == 'checked out' %}
+                      <span style="color:orange;">{{booking.booking_status|title}}</span> 
+                      {% endif %}
+                    </td>
+                    <td>{{booking.timestamp}}</td>
+                  </tr>
+                  {% endfor %}
+              
+                </tbody>
+              </table>          
+        </div>
+        
+      
+    </div>
+
+
+
+        </div>
+
+       </div>
+
+    </div>
+</section>
+{% endblock %}
+{% block footerJs %}
+<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+    $('#booking').DataTable();
+});
+</script>  
+{% endblock %}

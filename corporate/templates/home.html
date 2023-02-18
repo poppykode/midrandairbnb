@@ -1,0 +1,197 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- START SLIDER -->
+{% if slider_qs %}
+{% for slider in slider_qs %}
+<section class="home17 overlay home-three bg-img3" style=" background: linear-gradient(rgb(16 16 16 / 88%), rgb(0 0 0 / 64%)), url({{slider.background_image.url}}) no-repeat center top; height: 600px;" >
+    <div class="hero-main">
+        <div class="container" data-aos="zoom-in">
+            <div class="row">
+                <div class="col-12">
+                    <div class="banner-inner" style="text-align: center;">
+                        <h1 class="title">{{slider.text1|title}} <br><span class="typed">{{slider.text2|title}}</span></h1>
+                        <h5 class="sub-title">{{slider.text3|title}} </h5>
+                        <br>
+                        <p>   <a href="/" class="button border" style="width:auto">VIEW ALL PROPERTIES</a></p>
+                        
+                    </div>
+                </div>
+                <!-- Search Form -->
+            
+                <!--/ End Search Form -->
+            </div>
+        </div>
+    </div>
+</section>
+{% endfor %}
+{% endif %}
+<!-- END SLIDER -->
+<!-- END SECTION HEADINGS -->
+<!-- START SECTION RECENTLY PROPERTIES -->
+
+<section class="properties-list featured portfolio blog" style="background-color: #282d32;">
+    <div class="container-fluid">
+        <div class="section-title ml-3">
+            <h3>Our</h3>
+            <h2>Properties</h2>
+        </div>
+        <div class="row" style="padding:0 1.2em;">
+            {% for property in properties_qs %}
+            <div class="item col-lg-4 col-md-6 col-xs-12 landscapes sale">
+                <div class="project-single aos-init aos-animate" data-aos="fade-up">
+                    <div class="project-inner project-head">
+                        <div class="homes">
+                            <!-- homes img -->
+                            <a href="{% url 'corporate:property_details' property.slug %}" class="homes-img">
+
+                                <div class="homes-tag button alt sale">For Rent</div>
+                                <div class="homes-price">R{{property.property_price|floatformat:2}}</div>
+                                <img src="{{property.pproperty_image.url}}" alt="{{property.property_type}}" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="button-effect">
+                            <a href="{% url 'corporate:property_details' property.slug %}" class="btn"><i class="fa fa-link"></i></a>
+                            {% if property.youtube_link %}
+                            <a href="{{property.youtube_link}}" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                            {% endif %}
+                            <a href="{% url 'corporate:property_details' property.slug %}" class="img-poppu btn"><i class="fa fa-photo"></i></a>
+                        </div>
+                    </div>
+                    <!-- homes content -->
+                    <div class="homes-content" style="background-color:#050505 !important;">
+                        <!-- homes address -->
+                        <h3><a href="{% url 'corporate:property_details' property.slug %}">{{property.property_type|title}}</a></h3>
+                        <p class="homes-address mb-3">
+                            <a href="#">
+                                <i class="fa fa-map-marker"></i><span>{{property.property_address|title}}</span>
+                            </a>
+                        </p>
+                        <!-- homes List -->
+                        <ul class="homes-list clearfix pb-3">
+                            <li class="the-icons">
+                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
+                                <span>{{property.no_of_bedrooms}} Bedrooms</span>
+                            </li>
+                            <li class="the-icons">
+                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                <span>{{property.no_of_bathrooms}} Bathrooms</span>
+                            </li>
+                            <li class="the-icons">
+                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
+                                <span>{{property.property_size}}</span>
+                            </li>
+                            <li class="the-icons">
+                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
+                                <span>{{property.no_of_garages}} Garages</span>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+    
+
+
+        </div>
+
+    </div>
+</section>
+<!-- END SECTION RECENTLY PROPERTIES -->
+
+<section class="info-help h18">
+    <div class="container">
+        <div class="row info-head">
+            <div class="col-lg-12 col-md-8 col-xs-8">
+                <div class="info-text aos-init aos-animate" data-aos="fade-up" data-aos-delay="150">
+                    <h3 class="text-center mb-0" style="font-size: 50px;">Best Accomodation in Midrand</h3>
+                    <p class="text-center mb-4 p-0" style="font-size: 30px;line-height: 50px;">We offer perfect rental services</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% if news_and_blog_qs %}
+<section class="blog-section bg-black-1 rec-pro" style="margin-left: 1rem;">
+    <div class="container-fluid">
+        <div class="section-title">
+            <h3>Latest</h3>
+            <h2>News</h2>
+        </div>
+        <div class="news-wrap">
+            <div class="row">
+                <div class="col-xl-6 col-md-12 col-xs-12 aos-init aos-animate" data-aos="fade-right">
+                 {% for post in news_and_blog_qs %}
+                    <div class="news-item news-item-sm">
+                        <a href="{% url 'blog:news_and_blog_details' post.slug %}" class="news-img-link">
+                            <div class="news-item-img">
+                                <img class="resp-img" src="{{post.image.url}}" alt="{{post.title}}">
+                            </div>
+                        </a>
+                        <div class="news-item-text">
+                            <a href="{% url 'blog:news_and_blog_details' post.slug %}"><h3>{{post.title|title}}</h3></a>
+                            <span class="date">{{post.timestamp|date:"M d Y H:i A"}} &nbsp;/&nbsp; {{post.author|title}}</span>
+                            <div class="news-item-descr">
+                                <p>{{post.description|safe|truncatechars:100}}</p>
+                            </div>
+                            <div class="news-item-bottom">
+                                <a href="{% url 'blog:news_and_blog_details' post.slug %}" class="news-link">Read more...</a>
+                                <!-- <ul class="action-list">
+                                    <li class="action-item"><i class="fa fa-heart"></i> <span>306</span></li>
+                                    <li class="action-item"><i class="fa fa-comment"></i> <span>34</span></li>
+                                    <li class="action-item"><i class="fa fa-share-alt"></i> <span>122</span></li>
+                                </ul> -->
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %} 
+{% if agencies_qs %}
+<section class="team bg-white rec-pro bg-black-2">
+    <div class="container-fluid">
+        <div class="section-title col-md-5">
+            <h3>Meet Our</h3>
+            <h2>Agents</h2>
+        </div>
+        <div class="row team-all">
+            {% for agent in agencies_qs %}
+            <div class="team-block col-md-4 team-pro aos-init aos-animate" data-aos="fade-up" data-aos-delay="150">
+                <div class="team-wrap">
+                    <div class="team-img">
+                        <img src="{{agent.image.url}}" alt="{{agent.full_name}}">
+                    </div>
+                    <div class="team-content">
+                        <div class="team-info">
+                            <h3 style="color:#fff;">{{agent.full_name|title}}</h3>
+                            <p  style="color:#fff;">{{agent.position|title}}</p>
+                            <div class="team-socials">
+                                <ul>
+                                    <li>
+                                        <a href="{{agent.facebook}}" title="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="{{agent.twitter}}" title="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                        <a href="{{agent.linkedin}}" title="twitter"><i class="fa fa-linkedin-in" aria-hidden="true" style="background-color: #0072b1;"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+ 
+        </div>
+    </div>
+</section>
+{% endif %} 
+
+{% endblock %}

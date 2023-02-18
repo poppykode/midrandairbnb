@@ -1,0 +1,12 @@
+{
+    "extends": "eslint-config-airbnb-es5",
+    "env": {
+        "browser": true
+    },
+    "rules": {
+        "func-names": 0,
+        "indent": ["error", 4],
+        "no-param-reassign": ["error", {"props": false}],
+        "prefer-destructuring": ["error", {"object": false}]
+    }
+}

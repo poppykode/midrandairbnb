@@ -1,0 +1,93 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Properties{% endblock %}
+
+{% block content %}
+<!-- <section class="headings">
+    <div class="text-heading text-center">
+        <div class="container">
+            <h1>About Our Company</h1>
+            <h2><a href="/">Home </a> &nbsp;/&nbsp; Properties</h2>
+        </div>
+    </div>
+</section> -->
+<section class="properties-list featured portfolio blog" style="background-color: #282d32;">
+        <!-- <section class="headings-2 pt-0 pb-0" style="margin-bottom: 4.6em;">
+            <div class="pro-wrapper">
+                <div class="detail-wrapper-body">
+                    <div class="listing-title-bar">
+                        <div class="text-heading text-left">
+                            <p style="color: #f3df9e;"><a href="/">Home </a> &nbsp;/&nbsp; <span>Properties</span></p>
+                        </div>
+                        <h3 style="color: #f3df9e;">Properties</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    -->
+       <div class="container-fluid">
+        <div class="row" style="padding:0 2em;">
+            {% for property in properties_qs %}
+            <div class="item col-lg-4 col-md-6 col-xs-12 landscapes sale">
+                <div class="project-single aos-init aos-animate" data-aos="fade-up">
+                    <div class="project-inner project-head">
+                        <div class="homes">
+                            <!-- homes img -->
+                            <a href="{% url 'corporate:property_details' property.slug %}" class="homes-img">
+
+                                <div class="homes-tag button alt sale">For Rent</div>
+                                <div class="homes-price">R{{property.property_price|floatformat:2}}</div>
+                                <img src="{{property.pproperty_image.url}}" alt="{{property.property_type}}" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="button-effect">
+                            <a href="{% url 'corporate:property_details' property.slug %}" class="btn"><i class="fa fa-link"></i></a>
+                            {% if property.youtube_link %}
+                            <a href="{{property.youtube_link}}" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                            {% endif %}
+                            <a href="{% url 'corporate:property_details' property.slug %}" class="img-poppu btn"><i class="fa fa-photo"></i></a>
+                        </div>
+                    </div>
+                    <!-- homes content -->
+                    <div class="homes-content" style="background-color:#050505 !important;">
+                        <!-- homes address -->
+                        <h3><a href="#">{{property.property_type|title}}</a></h3>
+                        <p class="homes-address mb-3">
+                            <a href="{% url 'corporate:property_details' property.slug %}">
+                                <i class="fa fa-map-marker"></i><span>{{property.property_address|title}}</span>
+                            </a>
+                        </p>
+                        <!-- homes List -->
+                        <ul class="homes-list clearfix pb-3">
+                            <li class="the-icons">
+                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
+                                <span>{{property.no_of_bedrooms}} Bedrooms</span>
+                            </li>
+                            <li class="the-icons">
+                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                <span>{{property.no_of_bathrooms}} Bathrooms</span>
+                            </li>
+                            <li class="the-icons">
+                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
+                                <span>{{property.property_size}}</span>
+                            </li>
+                            <li class="the-icons">
+                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
+                                <span>{{property.no_of_garages}} Garages</span>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+   
+
+
+        </div>
+
+       </div>
+
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,297 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}{{obj.slug|title}}{% endblock %}
+{% block headerCSS %}
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+{% endblock %}
+
+{% block content %}
+<div class="inner-pages">
+<section class="single-proper blog details">
+    <div class="container">
+        <div class="row">
+        <div class="col-md-12">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+            <div class="col-lg-8 col-md-12 blog-pots">
+                <div class="row">
+                    <div class="col-md-12">
+                        <section class="headings-2 pt-0">
+                            <div class="pro-wrapper">
+                                <div class="detail-wrapper-body">
+                                    <div class="listing-title-bar">
+                                        <h3 style="color: #fff;">{{obj.property_type|title}} <span class="mrg-l-5 category-tag">For Rent</span></h3>
+                                        <div class="mt-0">
+                                            <a href="#" class="listing-address">
+                                                <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i> <span style="color: #fff;">{{obj.property_address|title}} </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single detail-wrapper mr-2">
+                                    <div class="detail-wrapper-body">
+                                        <div class="listing-title-bar">
+                                            <h4>R{{obj.property_price|floatformat:2}}</h4>
+                                            <div class="mt-0">
+                                                <a href="#listing-location" class="listing-address">
+                                                   
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- main slider carousel items -->
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                {% for image in obj.property_image.all %}
+                                <li data-target="#carouselExampleIndicators" data-slide-to=" {{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+                                {% endfor %}
+                            </ol>
+                            <div class="carousel-inner carus" role="listbox">
+                                {% for image in obj.property_image.all %}
+                                <div class="carousel-item  {% if forloop.first %}active{% endif %}">
+                                    <img class="d-block img-fluid" src="{{image.property_gallery_image.url}}" alt="{{image.property.property_type}}">
+                                </div>
+                                {% endfor %}
+                            
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                        <!-- cars content -->
+                        <div class="homes-content details-2 mb-4">
+                            <!-- cars List -->
+                            <ul class="homes-list clearfix">
+                                <li>
+                                    <i class="fa fa-bed" aria-hidden="true"></i>
+                                    <span>Bedrooms {{obj.no_of_bedrooms}}</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-bath" aria-hidden="true"></i>
+                                    <span>Bathrooms {{obj.no_of_bathrooms}}</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-object-group" aria-hidden="true"></i>
+                                    <span>Size {{obj.property_size}}</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-car" aria-hidden="true"></i>
+                                    <span>Garages {{obj.no_of_garages}}</span>
+                                </li>
+                                <li >
+                                    <i class="fa fa-columns" aria-hidden="true" style="color: #303441;"></i>
+                                    <span style="color: #303441;">Kitchen 2</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-clone" aria-hidden="true" style="color: #303441;"></i>
+                                    <span style="color: #303441;">Balcony 2</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="single homes-content details mb-30">
+                            <!-- title -->
+                            <h5 class="mb-4">Description</h5>             
+                            {{obj.description|safe}}
+                      
+                        </div>
+                  
+                    </div>
+                </div>
+                <div class="single homes-content details mb-30">
+                    <!-- title -->
+                    <h5 class="mb-4">Property Details</h5>
+                    <ul class="homes-list clearfix">
+                        <li>
+                            <span class="mr-1">Property ID:</span>
+                            <span class="det">V254680</span>
+                        </li>
+                        <li>
+                            <span class="mr-1">Property Type:</span>
+                            <span class="det">  {{obj.property_type}}</span>
+                        </li>
+                        <li>
+                            <span class="mr-1">Property status:</span>
+                            <span class="det">For Rent</span>
+                        </li>
+                        <li>
+                            <span class="mr-1">Property Price:</span>
+                            <span class="det">{{obj.property_price}}</span>
+                        </li>
+                        <li>
+                            <span class="mr-1">Rooms:</span>
+                            <span class="det">{{obj.no_of_rooms}}</span>
+                        </li>
+                        <li>
+                            <span class="mr-1">Bedrooms:</span>
+                            <span class="det">{{obj.no_of_bedrooms}}</span>
+                        </li>
+                        <li>
+                            <span class="mr-1">Bath:</span>
+                            <span class="det">{{obj.no_of_bathrooms}}</span>
+                        </li>
+                        <li>
+                            <span class="mr-1">Garages:</span>
+                            <span class="det">{{obj.no_of_garages}}</span>
+                        </li>
+                        <!-- <li>
+                            <span class="font-weight-bold mr-1">Year Built:</span>
+                            <span class="det">10/6/2020</span>
+                        </li> -->
+                    </ul>
+                    <!-- title -->
+                    <h5 class="mt-5">Amenities</h5>
+                    <!-- cars List -->
+           
+                    <ul class="homes-list clearfix">
+                        {% for anemity in obj.property_anemity.all %}
+                        <li>
+                            <i class="fa fa-check-square" aria-hidden="true"></i>
+                            <span>{{anemity.name|title}}</span>
+                        </li>
+                        {% endfor %}
+                      
+                    
+                    </ul> 
+                </div>
+                <div class="single homes-content details mb-30">
+                    <!-- title -->
+                    <h5 class="mb-4">What's Nearby</h5>             
+                    {{obj.whats_near_by|safe}}
+              
+                </div>
+                
+
+
+                <div class="property-location map">
+                    <h5>Location</h5>
+                    <div class="divider-fade"></div>
+                    <div id="map-contact" class="contact-map leaflet-container leaflet-fade-anim" tabindex="0" data-gesture-handling-touch-content="Use two fingers to move the map" data-gesture-handling-scroll-content="Use ctrl + scroll to zoom the map" style="position: relative;"><div class="leaflet-map-pane" style="transform: translate3d(0px, 0px, 0px);"><div class="leaflet-tile-pane"><div class="leaflet-layer"><div class="leaflet-tile-container"></div><div class="leaflet-tile-container leaflet-zoom-animated"><img class="leaflet-tile leaflet-tile-loaded" src="https://c.tile.openstreetmap.de/tiles/osmde/5/9/11.png" style="height: 256px; width: 256px; left: 240px; top: -108px;"><img class="leaflet-tile leaflet-tile-loaded" src="https://a.tile.openstreetmap.de/tiles/osmde/5/9/12.png" style="height: 256px; width: 256px; left: 240px; top: 148px;"><img class="leaflet-tile leaflet-tile-loaded" src="https://b.tile.openstreetmap.de/tiles/osmde/5/8/11.png" style="height: 256px; width: 256px; left: -16px; top: -108px;"><img class="leaflet-tile leaflet-tile-loaded" src="https://a.tile.openstreetmap.de/tiles/osmde/5/10/11.png" style="height: 256px; width: 256px; left: 496px; top: -108px;"><img class="leaflet-tile leaflet-tile-loaded" src="https://c.tile.openstreetmap.de/tiles/osmde/5/8/12.png" style="height: 256px; width: 256px; left: -16px; top: 148px;"><img class="leaflet-tile leaflet-tile-loaded" src="https://b.tile.openstreetmap.de/tiles/osmde/5/10/12.png" style="height: 256px; width: 256px; left: 496px; top: 148px;"></div></div></div><div class="leaflet-objects-pane"><div class="leaflet-shadow-pane"></div><div class="leaflet-overlay-pane"></div><div class="leaflet-marker-pane"><div class="leaflet-marker-icon leaflet-div-icon leaflet-zoom-animated leaflet-clickable" tabindex="0" style="margin-left: -50px; margin-top: -50px; width: 50px; height: 50px; transform: translate3d(342px, 150px, 0px); z-index: 150;"><i class="fa fa-building"></i></div></div><div class="leaflet-popup-pane"></div></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in">+</a><a class="leaflet-control-zoom-out" href="#" title="Zoom out">-</a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | © <a href="http://osm.org/copyright">OpenStreetMap</a> contributors</div></div></div></div>
+                </div>
+            
+          
+            </div>
+            <aside class="col-lg-4 col-md-12 car">
+                <div class="single widget">
+                    <!-- Start: Schedule a Tour -->
+                    <div class="schedule widget-boxed mt-30">
+                        <div class="widget-boxed-header">
+                            <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Make A Booking</h4>
+                        </div>
+                        <div class="widget-boxed-body">
+
+                            <form method="POST" action="{% url 'corporate:create_booking' obj.id %}">
+                                {% csrf_token %}
+
+                            <div class="row container-date">
+                                <div class="col-md-12 book"> 
+                                    <h4>Booking Info</h4>
+                                    <hr>
+                                    <label class="mb-4" style="margin-bottom:0px !important;">Select Booking Date</label> 
+                                    <label style="color: red;"><small>you can select multiple dates</small> </label>                               	
+                               <input type="text" id="datePick" class="form-control picker-input picker" name="booking_date" readonly required="true"/>
+                                </div>
+                                <input type="hidden" id="property_id" value="{{obj.id}}">
+                
+                            </div>
+                            <div class="row mrg-top-15 mb-3">
+                                <div class="col-lg-6 col-md-12 mt-4">
+                                    <label class="mb-2">Adults</label>
+                                    <input type="number" class="form-control" value="0" name="adult"/>
+                                </div>
+                                <div class="col-lg-6 col-md-12 mt-4">
+                                    <label class="mb-2">Children</label>
+                                    <input type="number"  class="form-control" value="0" name="children"/>
+                                </div>
+                            </div>
+                            <div class="row container-date">
+                                <div class="col-md-12 book"> 
+                                    <h4>Personal Info</h4>
+                                    <hr>
+                                <label>Full Name</label>                               	
+                               <input type="text"  class="form-control picker-input picker" name="full_name"/>
+                               <label>Email</label>                               	
+                               <input type="text"  class="form-control picker-input picker" name="email"/>
+                               <label>Phone Number</label>                               	
+                               <input type="text"  class="form-control picker-input picker" name="phone_number"/>
+                               <label>Address</label>  
+                               <textarea class="form-control" name="address" rows="3"></textarea>                             	
+
+                            </div>
+                           
+                
+                            </div>
+                            <button type="submit"  class="btn reservation btn-radius theme-btn full-width mrg-top-10">Create A Booking</button>
+                          
+
+                       </form>
+                       
+                        </div>
+                    </div>
+                    <!-- End: Schedule a Tour -->
+                    <!-- end author-verified-badge -->
+                    <div class="sidebar">
+                        <div class="widget-boxed mt-33 mt-5">
+                            <div class="widget-boxed-header">
+                                <h4>Agent Information</h4>
+                            </div>
+                            <div class="widget-boxed-body">
+                                <div class="sidebar-widget author-widget2">
+                                    <div class="author-box clearfix">
+                                        <img src="{{obj.agent.image.url}}" alt="author-image" class="{{obj.agent.full_name|title}}">
+                                        <h4 class="author__title">{{obj.agent.full_name|title}}</h4>
+                                        <p class="author__meta">{{obj.agent.position|title}}</p>
+                                    </div>
+                                    <ul class="author__contact">
+
+                                        <li><span class="la la-phone"><i class="fa fa-phone" aria-hidden="true"></i></span><a href="#">{{obj.agent.phone_number}}</a></li>
+                                        <li><span class="la la-envelope-o"><i class="fa fa-envelope" aria-hidden="true"></i></span><a href="#">{{obj.agent.email}}</a></li>
+                                    </ul>
+                                    <div class="agent-contact-form-sidebar">
+                                        <h4>Request Inquiry</h4>
+                                        <form method="POST" action="">
+                                            {% csrf_token %}
+                                            <input type="text"  name="full_name" placeholder="Full Name" required="">
+                                            <input type="number"  name="phone_number" placeholder="Phone Number" required="">
+                                            <input type="email"  name="email_address" placeholder="Email Address" required="">
+                                            <textarea placeholder="Message" name="message" required=""></textarea>
+                                            <input type="submit" name="sendmessage" class="multiple-send-message" value="Submit Request">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+    </div>
+</section>
+</div>
+{% endblock %}
+{% block footerJs %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/dubrox/Multiple-Dates-Picker-for-jQuery-UI@master/jquery-ui.multidatespicker.js"></script>
+
+<script src="{% static 'js/custom.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}{{obj.name|title}}{% endblock %}
+
+{% block content %}
+<div class="inner-pages">
+<section class="contact-us" style="background-color: #282d32;">
+    <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+
+            <div class="row">
+                <div class="col-md-12">
+            <div class="alert alert-{{ message.tags }} alert-dismissible notification closeable" role="alert">
+                <button type="button" class="btn-dark" data-dismiss="alert" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+                {{ message }}
+            </div>
+            </div>
+            </div>
+        {% endfor %}
+        {% endif %}
+        <div class="row"  style="padding: 1em;border: 1px solid #f3df9e;background-color: #000">
+            <div class="col-lg-8 col-md-12">
+                <h3 class="mb-4">Contact Us</h3>
+                <form id="contactform" class="contact-form" name="contactform" method="POST" action="{% url 'corporate:contact' %}">
+                    {% csrf_token %}
+                 
+                    <div class="form-group">
+                        <input type="text" required="" class="form-control input-custom input-full" name="name" placeholder="First Name" aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required="" class="form-control input-custom input-full" name="lastname" placeholder="Last Name" aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-custom input-full" name="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control textarea-custom input-full"  name="message" required="" rows="8" placeholder="Message" aria-required="true"></textarea>
+                    </div>
+                    <button type="submit"  class="btn btn-primary btn-lg" style="color:#000;">Send Message</button>
+                </form>
+            </div>
+            <div class="col-lg-4 col-md-12 bgc">
+                <div class="call-info">
+                    <h3>Contact Details</h3>
+                    <p class="mb-5">Please find below contact details and contact us today!</p>
+                    <ul>
+                        <li>
+                            <div class="info">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                <p class="in-p">38 oudekraal close Noordwyk, Midrand</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info">
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                <p class="in-p">082 313 2030/066 111 0445</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                <p class="in-p ti">info@midrandairbnb.co.za</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info cll">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                <p class="in-p ti">8:00 a.m - 9:00 p.m</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+{% endblock %}

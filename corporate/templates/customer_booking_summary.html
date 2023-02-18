@@ -1,0 +1,106 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Booking Summary for {{obj.booking_id}}{% endblock %}
+
+{% block headerCSS %}
+<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+<script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+{% block content %}
+
+<section class="properties-list featured portfolio blog" style="background-color: #282d32;">
+ 
+       <div class="container-fluid">
+        <div class="row" style="padding:0 2em;">
+
+    <div class="container contact-us">
+        {% if messages %}
+        {% for message in messages %}
+
+            <div class="row">
+                <div class="col-md-12">
+            <div class="alert alert-{{ message.tags }} alert-dismissible notification closeable" role="alert">
+                <button type="button" class="btn-dark" data-dismiss="alert" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+                {{ message }}
+            </div>
+            </div>
+            </div>
+        {% endfor %}
+        {% endif %}
+        
+        <div class="property-location mb-5">
+            {% if obj.booking_status == 'active'  %}
+            <a href="{% url 'corporate:cancel_booking' obj.booking_id %}" class="btn btn-danger mb-3" style="background-color: red;">Cancel Booking</a>
+           {% endif %}
+           {% if request.user.is_authenticated %}
+           <a href="{% url 'corporate:edit_status_view' obj.booking_id %}" class="btn btn-success mb-3" style="background-color: green;">Edit Status</a>
+          {% endif %}
+          <form action="{% url 'corporate:create_checkout_session_view' obj.booking_id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success mb-3" style="background-color: orange;">Make Payment Online</button>
+        </form>
+          <hr>
+            <h3>Booking summary for Booking ID: {{obj.booking_id}}</h3>
+            <div class="divider-fade"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 style="color: #f3df9e;"><i>PROPERTY INFO</i> </h6>
+                  
+                    <p>Property Type : {{obj.property.property_type|title}}</p>
+                    <p>Property Address : {{obj.property.property_address|title}}</p>
+                  
+                    <h6 style="color: #f3df9e;"><i>BOOKING INFO</i></h6>
+                    
+                    <p> Booking Status : 
+                        {% if obj.booking_status == 'active' %}
+                        <span style="color:green;">{{obj.booking_status|title}}</span> 
+                        {% endif %}
+                        {% if obj.booking_status == 'checked in' %}
+                        <span style="color:green;">{{obj.booking_status|title}}</span> 
+                        {% endif %}
+                        {% if obj.booking_status == 'cancelled' %}
+                        <span style="color:red;">{{obj.booking_status|title}}</span> 
+                        {% endif %}
+                        {% if obj.booking_status == 'checked out' %}
+                        <span style="color:orange;">{{obj.booking_status|title}}</span> 
+                        {% endif %}
+
+                        ( Booked on {{obj.timestamp}} )
+                        
+                    </p>
+                    <p>Booked Dates : {{obj.date}} ( {{obj.number_of_days}} days )</p>
+                    <p>Number of People : {{obj.number_of_people}} ( Adults {{obj.adults}} & Children {{obj.children}} )</p>
+                   
+                    <h6 style="color: #f3df9e;"><i>PERSONAL INFO</i> </h6>
+               
+                    <p>Full Names : {{obj.customer.full_name|title}}</p>
+                    <p>Email : {{obj.customer.email}}</p>
+                    <p>Phone Number : {{obj.customer.phone_number}}</p>
+                    <p>Address : {{obj.customer.address}}</p>
+                    <h6 style="color: #f3df9e;"><i>COST INFO</i> </h6>
+               
+                    <p>Total Cost : R{{obj.total_cost}}</p>
+              
+
+                </div>
+                <div class="col-md-6">
+                    <img src="{{obj.property.pproperty_image.url}}" alt="{{obj.property.property_type|title}}" class="img-thumbnail">
+                </div>
+            
+            </div>
+           
+        </div>
+      
+    </div>
+
+
+
+        </div>
+
+       </div>
+
+    </div>
+</section>
+{% endblock %}

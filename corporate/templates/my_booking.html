@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Manage Booking{% endblock %}
+
+{% block content %}
+
+<section class="properties-list featured portfolio blog" style="background-color: #282d32;">
+ 
+       <div class="container-fluid">
+        <div class="row" style="padding:0 2em;">
+
+    <div class="container contact-us">
+        {% if messages %}
+        {% for message in messages %}
+
+            <div class="row">
+                <div class="col-md-12">
+            <div class="alert alert-{{ message.tags }} alert-dismissible notification closeable" role="alert">
+                <button type="button" class="btn-dark" data-dismiss="alert" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+                {{ message }}
+            </div>
+            </div>
+            </div>
+        {% endfor %}
+        {% endif %}
+        
+        <div id="login" style="background-color: #282d32;">
+            <div class="login" style="border: 1px solid #f3df9e;">
+                <h3 class="mb-4">Login</h3>
+                <form action="{% url 'corporate:my_booking' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Booking ID</label>
+                        <input type="text" class="form-control" name="booking_id">
+                        <i class="icon_mail_alt"></i>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="email">
+                        <i class="icon_lock_alt"></i>
+                    </div>
+                 
+                    <button type="submit"  class="btn reservation btn-radius btn-block mrg-top-10">View Booking</button>
+                 
+                </form>
+            </div>
+        </div>
+      
+    </div>
+
+
+
+        </div>
+
+       </div>
+
+    </div>
+</section>
+{% endblock %}

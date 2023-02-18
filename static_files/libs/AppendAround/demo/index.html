@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AppendAround Demo</title>
+	<link href="docs.css" rel="stylesheet">
+	<link href="appendAround-sample.css" rel="stylesheet">
+</head>
+<body class="docs">
+
+	<style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .demo-header {
+    font-family: "Source Sans Pro";
+    padding: 14.4px 15px 4.8px;
+    padding: .9rem 15px 0.3rem;
+    border-bottom: 4px solid #619d43;
+    box-shadow: inset 0 -1px 1px -1px #d8e6d0;
+    font-size: .9em;
+  }
+  .demo-header .company img {
+    height: 40px;
+  }
+
+  .demo-header .description-container {
+    margin: 8px 0;
+    margin: .5rem 0;
+  }
+
+  .demo-header .repo-name {
+    font-weight: bold;
+  }
+  .demo-header .repo-name:after {
+    display: inline-block;
+    content: ":";
+  }
+  .demo-header .outbound-links,
+  .demo-header .outbound-links li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .demo-header .outbound-links li {
+    display: inline-block;
+  }
+  .demo-header .outbound-links li:first-child:before {
+    content: '';
+    margin-right: 0;
+  }
+  .demo-header .outbound-links li:before {
+    content: "|";
+    color: #999;
+    display: inline-block;
+    margin-right: 5px;
+  }
+  .demo-header .outbound-links a {
+    text-decoration: none;
+    color: #2a93e9;
+  }
+
+  @media (min-width: 48em){
+    .demo-header .company,
+    .demo-header .details {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .demo-header .company {
+      margin-right: 60px;
+    }
+  }
+</style>
+<div class="demo-header">
+  <div class="company">
+    <img src="http://filamentgroup.com/images/fg-logo-positive-sm-crop.png">
+  </div>
+  <div class="details">
+    <p class="description-container">Demo of <span class="repo-name">AppendAround</span>
+      <span class="description">A Responsive Markup Pattern.</span>
+    </p>
+    <ul class="outbound-links">
+      <li><a href="https://github.com/filamentgroup/AppendAround">Code</a></li>
+      <li><a href="https://github.com/filamentgroup/AppendAround/issues">Issues</a></li>
+    </ul>
+  </div>
+</div>
+
+	<div class="docs-main">
+		<h3>AppendAround: A Responsive Markup Pattern</h3>
+		<p>[c]@scottjehl, Filament Group, Inc. MIT/GPL</p>
+
+		<p>Sometimes, complex responsive layouts are hindered by source order. This pattern allows you to control where an element should be in the DOM by setting one of its potential parent containers (paired in the source with matching <code>data-set</code> attributes) to <code>display: block</code> at a particular breakpoint.</p>
+
+		<p>You might find this useful when embedding ads that need to be early in the source on a small-screen device, but later in the source in a desktop scenario. Or perhaps you'd use it to serve mobile-first navigation at the end of the page, while ensuring it's up top at wider viewports. Either way, this pattern can alleviate the need for server-side reliance when negotiating source-order discrepancies across layouts.</p>
+
+		<!-- potential container for appendAround -->
+		<div class="foo" data-set="foobarbaz"></div>
+
+		<ul>
+			<li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+			<li>Aliquam tincidunt mauris eu risus.</li>
+			<li>Vestibulum auctor dapibus neque.</li>
+		</ul>
+
+		<!-- potential container for appendAround -->
+		<div class="bar" data-set="foobarbaz"></div>
+
+		<ul>
+			<li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+			<li>Aliquam tincidunt mauris eu risus.</li>
+			<li>Vestibulum auctor dapibus neque.</li>
+		</ul>
+
+
+		<!-- initial container for appendAround -->
+		<div class="baz" data-set="foobarbaz">
+
+			<p class="sample">Sample appendAround Element</p>
+
+		</div>
+
+
+		<ul>
+			<li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+			<li>Aliquam tincidunt mauris eu risus.</li>
+			<li>Vestibulum auctor dapibus neque.</li>
+		</ul>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="../src/appendAround.js"></script>
+	<script>
+	/* Call appendAround */
+	$( ".sample" ).appendAround();
+</script>
+</body>
+</html>
