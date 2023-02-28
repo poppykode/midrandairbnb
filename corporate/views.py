@@ -49,6 +49,26 @@ def create_booking(request,property_id):
         qs = get_object_or_404(Property,id=property_id)
         children = request.POST.get('children')
         adults = request.POST.get('adult')
+        full_house = request.POST.get('full_house')
+        standard_room = request.POST.get('standard_room')
+        deluxe_room = request.POST.get('deluxe_room')
+        deluxe_room_with_patio = request.POST.get('deluxe_room_with_patio')
+        rooms = [full_house,standard_room,deluxe_room,deluxe_room_with_patio]
+        # rooms_ = ''
+        # while(None in rooms):
+        #     rooms.remove(None)
+        booked_rooms = ''
+        rooms_ = []
+        if not rooms_:
+            messages.warning(request,'please select a ')
+            return redirect('corporate:property_details')
+        for val in rooms:
+            if val != None :
+                rooms_.append(val)
+                if val == 'Full House':
+                    booked_rooms = val
+                    break
+                booked_rooms += val + ', '
         booking_dates = request.POST.get('booking_date')
         generated_booking_id = generate_booking_id()
         created_customer = CustomerInfo.objects.create(
@@ -64,7 +84,8 @@ def create_booking(request,property_id):
             booking_id = generated_booking_id,
             date = booking_dates.strip(),
             children = children,
-            total_cost = total_cost(booking_dates, property_id),
+            booking_options = booked_rooms,
+            total_cost = total_cost(booking_dates, property_id,rooms_),
             number_of_people = number_of_people(children,adults),
             number_of_days = number_of_days(booking_dates),
             slug = generated_booking_id,
@@ -209,6 +230,43 @@ def general_page(request,page_name):
     template_name = 'general_page.html'
     qs = get_object_or_404(models.GeneralPage, name=page_name)
     return render(request, template_name,{'obj':qs})
+
+def inquiry(request,slug):
+    if request.method == 'POST':
+        name = request.POST.get('full_name')
+        phone_number = request.POST.get('phone_number')
+        email = request.POST.get('email_address')
+        qs = get_object_or_404(Property,slug=slug)
+        to = qs.agent.email 
+        email_user = settings.EMAIL_USER
+        message = MIMEMultipart("alternative")
+        message["Subject"] = name
+        message["From"] = email_user
+        message["To"] = to
+        body = """\
+            <html>
+            <head> </head>
+            <body>
+                <h4>Inquiry Email</h4>
+                <p>%s</p>
+                <p>received from: Email %s - Phone Number: %s</p>
+                <p>Full Name: %s </p>
+            </body>
+            </html>
+            """ % (request.POST.get('message'),email,phone_number,name)
+        message.attach(MIMEText(body, "html"))
+        try:
+            smtp_server = smtplib.SMTP_SSL(settings.SMTP, settings.PORT)
+            print(smtp_server)
+            smtp_server.ehlo()
+            smtp_server.login(email_user,settings.PASSWORD)
+            smtp_server.sendmail(email_user, to, message.as_string())
+            smtp_server.close()
+            messages.success(request, 'Request successfully sent we will contact you soon.')
+        except Exception as ex:
+            print ("Something went wrong",ex)
+            messages.error(request,'Something went wrong.')    
+    return redirect('corporate:property_details',slug)
 
 def contact(request):
     template_name = 'contact.html'

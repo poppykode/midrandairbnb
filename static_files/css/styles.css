@@ -2714,7 +2714,7 @@ section.portfolio {
 
 .portfolio .homes-tag.sale {
   background: #e54242 !important;
-  width: 84px !important;
+  /* width: 100% !important; */
   height: 31px;
 }
 
@@ -24990,4 +24990,8 @@ a:hover {
   background: linear-gradient(rgb(0 0 0 / 80%), rgb(10 10 10 / 80%)), url(../images/bg/bg-testimonials.jpg) no-repeat center center;
   padding: 2rem;
   background-size: cover;
+}
+.go-up {
+  width: 40px;
+  left: 1rem;
 }

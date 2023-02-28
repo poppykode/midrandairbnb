@@ -80,7 +80,7 @@
                                 <li><a href="/">HOME</a></li>
                                 <li><a href="{% url 'corporate:properties' %}">PROPERTIES</a></li>
                                 
-                                <li><a href="/">OUR AGENTS</a></li>
+                                <li><a href="/">OUR HOSTS</a></li>
                                 <li><a href="{% url 'corporate:contact' %}">CONTACT</a></li>
                                 {% if user.is_authenticated %}
                                 <li><a href="{% url 'corporate:bookings' %}">BOOKINGS</a></li> 
@@ -162,14 +162,14 @@
                                 <div class="nav-footer">
                                     <ul>
                                         <li><a href="/">Home</a></li>
-                                        <li><a href="/">Properties</a></li>
+                                        <li><a href="{% url 'corporate:properties' %}">Properties</a></li>
                                         <li><a href="{% url 'corporate:bookings' %}">My Booking</a></li>
 
                                     </ul>
                                     <ul class="nav-right">
                                         <li><a href="{% url 'corporate:contact' %}">Contact</a></li>
-                                        <li><a href="{% url 'blog:news_and_blog' %}">Agents</a></li>
-                                        <li><a href="{% url 'corporate:general_page' 'terms-and-conditions' %}">Terms & Conditions</a></li>
+                                        <li><a href="/">Hosts</a></li>
+                                        <li><a href="{% url 'corporate:general_page' 'terms-and-conditions' %}">T&Cs</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
             </div>
             <div class="second-footer">
                 <div class="container-fluid">
-                    <p style="color:#fff;">&copy; Copyright {% now "Y" %} - All Rights Reserved.</p>
+                    <p style="color:#fff;">&copy; Copyright {% now "Y" %} - All Rights Reserved. Developed by <a href="http://kodetek.co.zw/">Kodetek</a></p>
                     <ul class="netsocials">
                         <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                         <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>

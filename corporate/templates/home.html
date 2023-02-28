@@ -15,7 +15,7 @@
                         <h1 class="title">{{slider.text1|title}} <br><span class="typed">{{slider.text2|title}}</span></h1>
                         <h5 class="sub-title">{{slider.text3|title}} </h5>
                         <br>
-                        <p>   <a href="/" class="button border" style="width:auto">VIEW ALL PROPERTIES</a></p>
+                        <p>   <a href="{% url 'corporate:properties' %}" class="button border" style="width:auto">VIEW ALL PROPERTIES</a></p>
                         
                     </div>
                 </div>
@@ -47,8 +47,8 @@
                             <!-- homes img -->
                             <a href="{% url 'corporate:property_details' property.slug %}" class="homes-img">
 
-                                <div class="homes-tag button alt sale">For Rent</div>
-                                <div class="homes-price">R{{property.property_price|floatformat:2}}</div>
+                                <div class="homes-tag button alt sale">For Booking</div>
+                                <div class="homes-price">R{{property.full_property_price|floatformat:2}}</div>
                                 <img src="{{property.pproperty_image.url}}" alt="{{property.property_type}}" class="img-responsive">
                             </a>
                         </div>
@@ -93,9 +93,6 @@
                 </div>
             </div>
             {% endfor %}
-    
-
-
         </div>
 
     </div>
@@ -160,7 +157,7 @@
     <div class="container-fluid">
         <div class="section-title col-md-5">
             <h3>Meet Our</h3>
-            <h2>Agents</h2>
+            <h2>Hosts</h2>
         </div>
         <div class="row team-all">
             {% for agent in agencies_qs %}

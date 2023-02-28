@@ -8,7 +8,10 @@ from django.db.models.deletion import CASCADE
 class Property(models.Model):
     pproperty_image= models.FileField(upload_to='property_image')
     property_type=models.CharField(max_length=255)
-    property_price=models.FloatField(default=0.00)
+    full_property_price=models.FloatField(default=0.00)
+    standard_price=models.FloatField(default=0.00)
+    deluxe_room_price = models.FloatField(default=0.00)
+    deluxe_room_with_patio_price = models.FloatField(default=0.00)
     property_address=models.CharField(max_length=255)
     description = RichTextField()
     whats_near_by = RichTextField()
@@ -93,6 +96,8 @@ class Agent(models.Model):
 
     def __str__(self):
         return self.full_name
+    class Meta:
+        verbose_name_plural = "Hosts"
 
 
     class Meta:
@@ -139,6 +144,7 @@ class Booking(models.Model):
     customer = models.ForeignKey(CustomerInfo,related_name="info_booking_customer",on_delete=CASCADE)
     booking_id = models.CharField(max_length=255)
     booking_status = models.CharField(max_length=100, choices=BOOKING_STATUS,default='active')
+    booking_options = models.CharField(max_length=255)
     date=models.CharField(max_length=255)
     children=models.CharField(max_length=255)
     adults=models.CharField(max_length=255)

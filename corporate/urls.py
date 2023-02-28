@@ -13,6 +13,7 @@ urlpatterns = [
     path('payment/checkout/<str:booking_id>',views.payment_checkout,name='payment_checkout'),
     path('contact',views.contact,name='contact'),
     path('<str:page_name>',views.general_page,name='general_page'),
+    path('inguiry/<slug:slug>',views.inquiry,name='inquiry'),
     path('details/<slug:slug>',views.property_details,name='property_details'),
     path('create-a-booking/<int:property_id>',views.create_booking,name='create_booking'),
     path('booking-cancellation/<str:booking_id>',views.cancel_booking,name='cancel_booking'),

@@ -29,7 +29,7 @@
                             <div class="pro-wrapper">
                                 <div class="detail-wrapper-body">
                                     <div class="listing-title-bar">
-                                        <h3 style="color: #fff;">{{obj.property_type|title}} <span class="mrg-l-5 category-tag">For Rent</span></h3>
+                                        <h3 style="color: #fff;">{{obj.property_type|title}} <span class="mrg-l-5 category-tag">For Booking</span></h3>
                                         <div class="mt-0">
                                             <a href="#" class="listing-address">
                                                 <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i> <span style="color: #fff;">{{obj.property_address|title}} </span>
@@ -40,7 +40,9 @@
                                 <div class="single detail-wrapper mr-2">
                                     <div class="detail-wrapper-body">
                                         <div class="listing-title-bar">
-                                            <h4>R{{obj.property_price|floatformat:2}}</h4>
+                                            <p>Full House</p>
+                                            <h4>R{{obj.full_property_price|floatformat:2}} </h4>
+                                          
                                             <div class="mt-0">
                                                 <a href="#listing-location" class="listing-address">
                                                    
@@ -129,11 +131,11 @@
                         </li>
                         <li>
                             <span class="mr-1">Property status:</span>
-                            <span class="det">For Rent</span>
+                            <span class="det">For Booking</span>
                         </li>
                         <li>
                             <span class="mr-1">Property Price:</span>
-                            <span class="det">{{obj.property_price}}</span>
+                            <span class="det">R{{obj.full_property_price}}</span>
                         </li>
                         <li>
                             <span class="mr-1">Rooms:</span>
@@ -204,9 +206,35 @@
                                 <div class="col-md-12 book"> 
                                     <h4>Booking Info</h4>
                                     <hr>
+                                    <label> Select Booking Option</label>
+                                    {% if obj.full_property_price > 0 %}
+                                    <label for="fh">
+                                        <input type="checkbox" name="full_house" value="Full House" id="fh"> Full House (R{{obj.full_property_price}})
+                                    </label>
+                                    <br>
+                                    {% endif %}
+                                    {% if obj.standard_price > 0 %}
+                                    <label for="sr">
+                                        <input type="checkbox" name="standard_room" value="Standard Room" id="sr"> Standard Room (R{{obj.standard_price}})
+                                    </label>
+                                    <br>
+                                    {% endif %}
+                                    {% if obj.deluxe_room_price > 0 %}
+                                    <label for="dr">
+                                        <input type="checkbox" name="deluxe_room" value="Deluxe Room" id="dr"> Deluxe Room (R{{obj.deluxe_room_price}})
+                                    </label>
+                                    <br>
+                                    {% endif %}
+                                    {% if obj.deluxe_room_with_patio_price > 0 %}
+                                    <label for="drp">
+                                        <input type="checkbox" name="deluxe_room_with_patio" value="Deluxe Room with Patio" id="drp"> Deluxe Room with Patio (R{{obj.deluxe_room_with_patio_price}})
+                                    </label>
+                                   <br>
+                                   {% endif %}
+
                                     <label class="mb-4" style="margin-bottom:0px !important;">Select Booking Date</label> 
                                     <label style="color: red;"><small>you can select multiple dates</small> </label>                               	
-                               <input type="text" id="datePick" class="form-control picker-input picker" name="booking_date" readonly required="true"/>
+                               <input type="text" id="datePick" class="form-control picker-input picker" name="booking_date" readonly required/>
                                 </div>
                                 <input type="hidden" id="property_id" value="{{obj.id}}">
                 
@@ -226,13 +254,13 @@
                                     <h4>Personal Info</h4>
                                     <hr>
                                 <label>Full Name</label>                               	
-                               <input type="text"  class="form-control picker-input picker" name="full_name"/>
+                               <input type="text"  class="form-control picker-input picker" name="full_name" required/>
                                <label>Email</label>                               	
-                               <input type="text"  class="form-control picker-input picker" name="email"/>
+                               <input type="text"  class="form-control picker-input picker" name="email" required/>
                                <label>Phone Number</label>                               	
-                               <input type="text"  class="form-control picker-input picker" name="phone_number"/>
+                               <input type="text"  class="form-control picker-input picker" name="phone_number" required/>
                                <label>Address</label>  
-                               <textarea class="form-control" name="address" rows="3"></textarea>                             	
+                               <textarea class="form-control" name="address" rows="3" required></textarea>                             	
 
                             </div>
                            
@@ -250,7 +278,7 @@
                     <div class="sidebar">
                         <div class="widget-boxed mt-33 mt-5">
                             <div class="widget-boxed-header">
-                                <h4>Agent Information</h4>
+                                <h4>Host Information</h4>
                             </div>
                             <div class="widget-boxed-body">
                                 <div class="sidebar-widget author-widget2">
@@ -266,11 +294,11 @@
                                     </ul>
                                     <div class="agent-contact-form-sidebar">
                                         <h4>Request Inquiry</h4>
-                                        <form method="POST" action="">
+                                        <form method="POST" action="{% url 'corporate:inquiry' obj.slug %}">
                                             {% csrf_token %}
-                                            <input type="text"  name="full_name" placeholder="Full Name" required="">
-                                            <input type="number"  name="phone_number" placeholder="Phone Number" required="">
-                                            <input type="email"  name="email_address" placeholder="Email Address" required="">
+                                            <input type="text"  name="full_name" placeholder="Full Name" required/>
+                                            <input type="text"  name="phone_number" placeholder="Phone Number" required/>
+                                            <input type="email"  name="email_address" placeholder="Email Address" required/>
                                             <textarea placeholder="Message" name="message" required=""></textarea>
                                             <input type="submit" name="sendmessage" class="multiple-send-message" value="Submit Request">
                                         </form>

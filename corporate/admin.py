@@ -36,6 +36,7 @@ class GeneralPageAdmin(admin.ModelAdmin):
         model=(models.GeneralPage)
 
 admin.site.register(models.Slider)
+admin.site.register(models.Booking)
 admin.site.register(models.GeneralPage,GeneralPageAdmin)
 admin.site.register(models.Property,PropertyAdmin)
 admin.site.register(models.Amenity)

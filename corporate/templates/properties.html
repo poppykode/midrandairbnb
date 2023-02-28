@@ -35,8 +35,8 @@
                             <!-- homes img -->
                             <a href="{% url 'corporate:property_details' property.slug %}" class="homes-img">
 
-                                <div class="homes-tag button alt sale">For Rent</div>
-                                <div class="homes-price">R{{property.property_price|floatformat:2}}</div>
+                                <div class="homes-tag button alt sale">For Booking</div>
+                                <div class="homes-price">R{{property.full_property_price|floatformat:2}}</div>
                                 <img src="{{property.pproperty_image.url}}" alt="{{property.property_type}}" class="img-responsive">
                             </a>
                         </div>
