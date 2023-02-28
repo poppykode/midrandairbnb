@@ -35,9 +35,9 @@ MEDIA_DIR = Path(BASE_DIR/ 'media')
 SECRET_KEY = 'django-insecure-ir76kj41v&hwsx))taakd%dt#pjofo3cfz4tzl4$+v47a3=9_e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.midrandairbnb.co.za']
 
 
 # Application definition
@@ -69,7 +69,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'airbnb.urls'
-CKEDITOR_UPLOAD_PATH ='uploads/'    
+CKEDITOR_UPLOAD_PATH ='uploads/'
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 TEMPLATES = [
     {
@@ -102,10 +103,10 @@ WSGI_APPLICATION = 'airbnb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'airbnb_db',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'NAME': 'midrandairbnb$default',
+        'USER': 'midrandairbnb',
+        'PASSWORD': 'Suf9]}@P[94O',
+        'HOST': 'midrandairbnb.mysql.pythonanywhere-services.com',
         'PORT': '3306',
     }
 }
@@ -145,11 +146,11 @@ USE_TZ = True
 STRIPE_PUBLIC_KEY = "pk_test_s9a9la9ULfVhDx6zeZ2S1Wry009EcEIcuw"
 STRIPE_SECRET_KEY = "sk_test_zDvDNDjuNaHDNXzxMzhxrmSa00rM0o8Aoj"
 STRIPE_WEBHOOK_SECRET = ""
-DOMAIN ='http://127.0.0.1:8000'
+DOMAIN ='http://www.midrandairbnb.co.za'
 
 EMAIL_USER = 'bookings@midrandairbnb.co.za'
 TO_ = 'admin@midrandairbnb.co.za'
-PASSWORD = '5thu7Q=AyYD0' 
+PASSWORD = '5thu7Q=AyYD0'
 SMTP ='midrandairbnb.co.za'
 PORT =  465
 
@@ -157,9 +158,9 @@ PORT =  465
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR, ]
-STATIC_ROOT = Path(BASE_DIR/ 'static')
+STATIC_ROOT = Path(BASE_DIR/'static')
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
